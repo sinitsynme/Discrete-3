@@ -32,7 +32,8 @@ namespace ConsoleApp1
                 if (Test(fiveCards))
                 {
                     count++;
-                    Out(fiveCards, _cards);
+                    //Out(fiveCards, _cards); !!!! раскомментировать для вывода всех нужных сочетаний на консоль
+                    //однако, если у вас очень много сочетаний, вывод будет очень долгим!!!!
                 }
                 return;
             }
