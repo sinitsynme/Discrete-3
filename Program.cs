@@ -10,6 +10,12 @@ namespace ConsoleApp1
         //создал словарь, подробнее в методе CreateCards
         private static Dictionary<int, string> _cards = new Dictionary<int, string>(); 
         
+        private static Dictionary<int, string> _suits = new Dictionary<int, string>() {
+            [0] = "♠", [1] = "♥", [2] = "♦", [3] = "♣"
+        };
+        
+        private static string[] _values = {"6", "7", "8", "9", "10", "J", "Q", "K", "A"};
+        
         private static int count = 0; //считает подходящие сочетания
         
         static void Main(string[] args)
@@ -32,8 +38,7 @@ namespace ConsoleApp1
                 if (Test(fiveCards))
                 {
                     count++;
-                    //Out(fiveCards, _cards); !!!! раскомментировать для вывода всех нужных сочетаний на консоль
-                    //однако, если у вас очень много сочетаний, вывод будет очень долгим!!!!
+                    Out(fiveCards, _cards);
                 }
                 return;
             }
@@ -153,52 +158,12 @@ namespace ConsoleApp1
 
         static string Suit(int key)
         {
-            var convert = new Dictionary<int, string>()
-            {
-                [0] = "♠", [1] = "♥", [2] = "♦", [3] = "♣"
-            };
-            return convert[key % 4];
+            return _suits[key % 4];
         }
 
         static string Value(int key)
         {
-            if (key >= 1 && key <= 4)
-            {
-                return "6";
-            }
-            else if (key >= 5 && key <= 8)
-            {
-                return "7";
-            }
-            else if (key >= 9 && key <= 12)
-            {
-                return "8";
-            }
-
-            else if (key >= 13 && key <= 16)
-            {
-                return "9";
-            }
-            else if (key >= 17 && key <= 20)
-            {
-                return "10";
-            }
-            else if (key >= 21 && key <= 24)
-            {
-                return "J";
-            }
-            else if (key >= 25 && key <= 28)
-            {
-                return "Q";
-            }
-            else if (key >= 29 && key <= 32)
-            {
-                return "K";
-            }
-            else
-            {
-                return "A";
-            }
+            return _values[(key-1) / 4];
         }
         
         //Нужно переписать под себя только метод Test()!
