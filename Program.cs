@@ -226,31 +226,19 @@ namespace ConsoleApp1
             int aces = 0; // число дам, тузов, пикушек  
             foreach (int key in fiveCards)
             {
-                if (Value(key) == "Q" && Suit(key) != "♠") //у непиковых дам ключи 25, 26, 27
+                if (Value(key) == "Q")
                 {
                     queens++;
                 }
 
-                if (Suit(key) == "♠" && Value(key) != "Q" && Value(key) != "A") //определяю, ключ пиковый или нет + чтобы не был тузом или дамой
-                {
-                    spades++;
-                }
-
-                if (Value(key) == "A" && Suit(key) != "♠") // у непиковых тузов ключи 33, 34, 35
+                if (Value(key) == "A")
                 {
                     aces++;
                 }
 
-                if (Value(key)== "A" && Suit(key) == "♠") //отдельно отслеживаем пикового туза...
+                if (Suit(key) == "♠")
                 {
                     spades++;
-                    aces++;
-                }
-
-                if (Value(key) == "Q" && Suit(key) == "♠") //...и пиковую даму
-                {
-                    spades++;
-                    queens++;
                 }
             }
 
