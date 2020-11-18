@@ -18,7 +18,7 @@ namespace ConsoleApp1
             CreateCards(ref _cards);
             int[] fiveCards = new int[5]; //для ключей карт, вошедших в сочетание
 
-            Rec(0,0,ref fiveCards); //вызывает перебор всех сочетаний
+            Rec(0,0,ref fiveCards);
             Console.WriteLine();
             Console.WriteLine("Число сочетаний равно " + count);
             Console.ReadLine();
@@ -98,11 +98,11 @@ namespace ConsoleApp1
                 
                 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 определить масть по ключу:
-                ♥ -> ключ % 4 = 1
-                ♦ -> ключ % 4 = 2
-                ♣ -> ключ % 4 = 3
-                ♠ -> ключ % 4 = 0
-                определить номер/букву карты по ключу можно через неравенства (для 6 это (key>=1 && key <=4)
+                метод Suit(int key)
+                
+                определить достоинство карты по ключу:
+                метод Value(int key)
+                
                 
             */
             int count = 1;
@@ -149,41 +149,105 @@ namespace ConsoleApp1
             }
             Console.WriteLine();
         }
+
+        static string Suit(int key)
+        {
+            if (key % 4 == 0)
+            {
+                return "♠";
+            }
+
+            else if (key % 4 == 1)
+            {
+                return "♥";
+            }
+            else if (key % 4 == 2)
+            {
+                return "♦";
+            }
+            else
+            {
+                return "♣";
+            }
+        }
+
+        static string Value(int key)
+        {
+            if (key >= 1 && key <= 4)
+            {
+                return "6";
+            }
+            else if (key >= 5 && key <= 8)
+            {
+                return "7";
+            }
+            else if (key >= 9 && key <= 12)
+            {
+                return "8";
+            }
+
+            else if (key >= 13 && key <= 16)
+            {
+                return "9";
+            }
+            else if (key >= 17 && key <= 20)
+            {
+                return "10";
+            }
+            else if (key >= 21 && key <= 24)
+            {
+                return "J";
+            }
+            else if (key >= 25 && key <= 28)
+            {
+                return "Q";
+            }
+            else if (key >= 29 && key <= 32)
+            {
+                return "K";
+            }
+            else
+            {
+                return "A";
+            }
+        }
         
+        //Нужно переписать под себя только метод Test()!
+        //-------------------------------------------------------------------------------
         /*ПРИМЕР АЛГОРИТМА
          12 вар -  Нужно, чтобы ТОЧНО были 2 дамы, 2 туза, 1 карта пиковой масти
          то есть надо проверить массив ключей на то, что у нас есть 2 непиковых дамы, 2 непиковых туза 
          и 1 пикушка
         */
-        static bool Test(int[] fiveCards) //Редактируем только Test под свой вариант
+        static bool Test(int[] fiveCards)
         {
             int queens = 0;
             int spades = 0; //создаю три интовых переменных, чтобы можно было отслеживать
             int aces = 0; // число дам, тузов, пикушек  
             foreach (int key in fiveCards)
             {
-                if (key>=25 && key <= 27) //у непиковых дам ключи 25, 26, 27
+                if (Value(key) == "Q" && Suit(key) != "♠") //у непиковых дам ключи 25, 26, 27
                 {
                     queens++;
                 }
 
-                if (key % 4 == 0 && key != 28 && key != 36) //определяю, ключ пиковый или нет + чтобы не был тузом или дамой
+                if (Suit(key) == "♠" && Value(key) != "Q" && Value(key) != "A") //определяю, ключ пиковый или нет + чтобы не был тузом или дамой
                 {
                     spades++;
                 }
 
-                if (key >= 33 && key <= 35) // у непиковых тузов ключи 33, 34, 35
+                if (Value(key) == "A" && Suit(key) != "♠") // у непиковых тузов ключи 33, 34, 35
                 {
                     aces++;
                 }
 
-                if (key == 36) //отдельно отслеживаем пикового туза...
+                if (Value(key)== "A" && Suit(key) == "♠") //отдельно отслеживаем пикового туза...
                 {
                     spades++;
                     aces++;
                 }
 
-                if (key == 28)//...и пиковую даму
+                if (Value(key) == "Q" && Suit(key) == "♠") //...и пиковую даму
                 {
                     spades++;
                     queens++;
