@@ -153,23 +153,11 @@ namespace ConsoleApp1
 
         static string Suit(int key)
         {
-            if (key % 4 == 0)
+            var convert = new Dictionary<int, string>()
             {
-                return "♠";
-            }
-
-            else if (key % 4 == 1)
-            {
-                return "♥";
-            }
-            else if (key % 4 == 2)
-            {
-                return "♦";
-            }
-            else
-            {
-                return "♣";
-            }
+                [0] = "♠", [1] = "♥", [2] = "♦", [3] = "♣"
+            };
+            return convert[key % 4];
         }
 
         static string Value(int key)
